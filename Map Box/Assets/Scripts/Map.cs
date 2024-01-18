@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
     // Inspector attribute 
     public float centerLatitude = 37.8703f; // San francisco Latitude & Longitude 
     public float centerLongitude = -122.3372f;  
-    public float zoom = 10.0f; 
+    public static float zoom = 10.0f; 
     public int bearing = 0; 
     public int pitch = 0; 
     public string accessToken; 
@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
     private int mapWidth = 800; 
     // Status 
     //private bool mapIsLoading = false; 
-    private bool updateMap = true; 
+    private bool updateMap = false; 
 
     
 
@@ -54,9 +54,11 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //checking map attribute is changed or not
-        if (updateMap && (accessTokenLast != accessToken || !Mathf.Approximately(centerLatitudeLast, centerLatitude) || Mathf.Approximately(centerLongitudeLast, centerLongitude) || zoomLast != zoom || bearingLast != bearing || pitchLast != pitch || mapStyleLast != mapStyle))
+        if (updateMap && (accessTokenLast != accessToken || !Mathf.Approximately(centerLatitudeLast, centerLatitude) || !Mathf.Approximately(centerLongitudeLast, centerLongitude) || zoomLast != zoom || bearingLast != bearing || pitchLast != pitch || mapStyleLast != mapStyle))
         {
+            Debug.Log("zoom: " + zoom);
             rect = gameObject.GetComponent<RawImage>().rectTransform.rect; 
             mapWidth = (int)Math.Round(rect.width); 
             mapHeight = (int)Math.Round(rect.height); 
